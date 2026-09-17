@@ -16,12 +16,12 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
   })
 );
 app.use(express.json());
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5002;
 app.use(clerkMiddleware())
 app.use(rateLimiter)
 
@@ -30,7 +30,7 @@ app.use("/api/appointments", router )
 app.use("/api/user", userRouter )
 
 connectDb().then(()=>{
-    app.listen( PORT, ()=>{
+    app.listen( PORT,"0.0.0.0", ()=>{
     console.log("server has started on port", PORT)
 })
 })
