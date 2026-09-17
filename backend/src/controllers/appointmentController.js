@@ -245,7 +245,6 @@ export async function deleteAppointment(req,res){
     
 }
 
-
 export async function getAvailableTimes(req, res) {
     try {
         const { date } = req.query;
@@ -256,12 +255,33 @@ export async function getAvailableTimes(req, res) {
             });
         }
 
-        // Monday-Friday
+        const today = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "America/Port_of_Spain",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).format(new Date());
+
+    
+        if (date < today) {
+            return res.status(200).json({
+                date,
+                slots: []
+            });
+        }
+
+    
         const selectedDate = new Date(`${date}T00:00:00`);
+
+        if (isNaN(selectedDate.getTime())) {
+            return res.status(400).json({
+                message: "Invalid date"
+            });
+        }
+
         const day = selectedDate.getDay();
 
-        // 0 = Sunday
-        // 6 = Saturday
+      
         if (day === 0 || day === 6) {
             return res.status(200).json({
                 date,
@@ -269,16 +289,16 @@ export async function getAvailableTimes(req, res) {
             });
         }
 
-        // Working hours: 9 AM - 4 PM
+     
         const slots = [];
 
-        for (let hour = 9; hour < 16; hour++) {
+        for (let hour = 9; hour < 17; hour++) {
             slots.push(
                 `${String(hour).padStart(2, "0")}:00`
             );
         }
 
-        // Find existing appointments on that day
+    
         const startOfDay = new Date(`${date}T00:00:00`);
         const endOfDay = new Date(`${date}T23:59:59`);
 
@@ -287,13 +307,12 @@ export async function getAvailableTimes(req, res) {
                 $gte: startOfDay,
                 $lte: endOfDay
             },
-
             status: {
                 $in: ["pending", "confirmed"]
             }
         });
 
-        // Remove booked slots
+      
         const availableSlots = slots.filter((slot) => {
 
             const slotDate = new Date(
@@ -301,12 +320,15 @@ export async function getAvailableTimes(req, res) {
             );
 
             return !appointments.some((appointment) => {
+
                 return (
                     new Date(
                         appointment.appointmentDate
                     ).getTime() === slotDate.getTime()
                 );
+
             });
+
         });
 
         res.status(200).json({
@@ -315,6 +337,7 @@ export async function getAvailableTimes(req, res) {
         });
 
     } catch (error) {
+
         console.error(
             "Error getting available times:",
             error
