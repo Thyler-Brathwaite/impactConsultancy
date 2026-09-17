@@ -30,15 +30,10 @@ export default function BookAppointment() {
 
   const formatTime = (time) => {
     const [hour, minute] = time.split(":");
+    const hour12 = hour % 12 || 12;
+    const period = hour >= 12 ? "PM" : "AM";
 
-    const date = new Date();
-    date.setHours(hour);
-    date.setMinutes(minute);
-
-    return date.toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit"
-    });
+    return `${hour12}:${minute} ${period}`;
   };
 
   const handleChange = (e) => {
