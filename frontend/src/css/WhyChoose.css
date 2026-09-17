@@ -80,6 +80,28 @@
 }
 
 .grid-card:hover{
-    transform: translateY(-8px);
-    box-shadow: 4px 12px 25px rgba(0, 0, 0, 0.35);
+    transform: scale(1.2);
+    
+}
+
+@media (max-width: 1024px){
+    .card4{
+    background-color: white;
+    color:black;
+}
+
+.card1{
+    background-color: white;
+    color:black;
+}
+
+.card2{
+    background-color: white;
+    color:black;
+}
+
+.card3{
+    background-color: white;
+    color:black;
+}
 }
