@@ -16,7 +16,7 @@ export default function AppointmentCard({ appointment, onStatusUpdated }) {
     status,
     notes
   } = appointment;
-
+  const API_URL = import.meta.env.VITE_API_URL;
   const { user } = useUser();
   const { getToken } = useAuth();
 
@@ -46,7 +46,7 @@ export default function AppointmentCard({ appointment, onStatusUpdated }) {
       const token = await getToken();
 
       const response = await fetch(
-        `http://localhost:5002/api/appointments/${appointment._id}`,
+        `${API_URL}/api/appointments/${appointment._id}`,
         {
           method: "PUT",
           headers: {

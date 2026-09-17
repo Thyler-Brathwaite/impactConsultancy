@@ -9,7 +9,7 @@ import "../../css/AdminBookingsPage.css";
 export default function AdminBookingsPage() {
 
   const { getToken } = useAuth();
-
+  const API_URL = import.meta.env.VITE_API_URL;
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +23,7 @@ export default function AdminBookingsPage() {
       const token = await getToken();
 
       const response = await fetch(
-        "http://localhost:5002/api/appointments",
+        `${API_URL}/api/appointments`,
         {
           headers: {
             Authorization: `Bearer ${token}`

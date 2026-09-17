@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from "cors";
 import router from './routers/router.js'
-import userRouter from './routers/userRouter.js'
+
 import dotenv from 'dotenv'
 import { connectDb } from './config/config.js';
 import rateLimiter from './middleware/rateLimiter.js';
@@ -27,7 +27,7 @@ app.use(rateLimiter)
 
 app.use("/api/appointments", router )
 
-app.use("/api/user", userRouter )
+
 
 connectDb().then(()=>{
     app.listen( PORT,"0.0.0.0", ()=>{

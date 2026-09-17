@@ -8,6 +8,7 @@ import "../../css/BookingsPage.css";
 
 export default function BookingsPage() {
     const { getToken } = useAuth();
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ export default function BookingsPage() {
                 const token = await getToken();
 
                 const response = await fetch(
-                    "http://localhost:5002/api/appointments/my",
+                    `${API_URL}/api/appointments/my`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
