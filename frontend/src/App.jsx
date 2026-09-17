@@ -5,7 +5,6 @@ import Navbar from './components/Navbar'
 import ServicePage from './pages/ServicePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import Contact from './pages/Contact.jsx'
-import AuthPage from './pages/AuthPage.jsx'
 import SignInPage from './pages/SignInPage.jsx'
 import SignUpPage from './pages/SignUpPage.jsx'
 import ScrollToTop from "./data/ScrollToTop";
