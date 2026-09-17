@@ -16,13 +16,14 @@ export default function WhyChoose() {
 
     const item = {
         hidden: {
-            opacity: 45,
+            opacity: 0,
             x: -50
             },
 
         visible: {
             opacity: 1,
-            x: 0
+            x: 0,
+            transition:{duration: 1.2,ease: "easeIn"}
         }
     };
 
@@ -34,7 +35,7 @@ export default function WhyChoose() {
 
             <div className="why-choose-title">
 
-                <p className="why-choose-title-p">WHY <motion.span initial={{opacity:0}} whileInView={{opacity:1}}  transition={{duration: 1.2,ease: "easeIn"}}>1ST IMPACT</motion.span>?</p>
+                <p className="why-choose-title-p">WHY <motion.span initial={{opacity:0}} whileInView={{opacity:1}}  >1ST IMPACT</motion.span>?</p>
                 
             </div>
 
