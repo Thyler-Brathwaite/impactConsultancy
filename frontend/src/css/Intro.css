@@ -1,0 +1,60 @@
+.intro{
+     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #291049;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    
+    
+}
+
+.intro-container{
+    
+    padding:4rem;
+    
+    
+
+}
+
+.info-section{
+    text-align: center;
+    
+}
+
+.info-p1{
+    font-size: 3rem;
+    font-weight: 900;
+   
+}
+
+.info-p2{
+    font-size: 1.5rem;
+    font-weight: 700;
+   
+}
+
+.info-p3{
+    font-size: 1.5rem;
+    font-weight: 700;
+   
+}
+.info-p4{
+    font-size: 1.5rem;
+    font-weight: 700;
+   
+}
+
+.info-p5{
+    font-size: 1.5rem;
+    font-weight: 700;
+   
+}
+.info-section span{
+    color:rgb(96, 14, 173);
+}

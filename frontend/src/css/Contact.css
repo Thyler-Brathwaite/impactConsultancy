@@ -1,0 +1,52 @@
+.contact{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+   
+    color:#291049;
+}
+
+.contact-focus-div{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.452);
+    border:1px solid rgba(137, 43, 226, 0.37);
+    margin:2rem;
+    background-color: white;
+    border-radius: 5px;
+    padding: 3rem;
+    text-align: left;
+}
+
+.contact-title{
+    font-size:3rem;
+}
+
+.contact-line{
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.contact-intro-p2{
+    font-size:1.5rem;
+    font-weight: 200;
+}
+
+.contact-intro-p5{
+    font-size:1.2rem;
+    font-weight: 200;
+    
+}
+
+a{
+    text-decoration: none;
+    color:#291049;
+}

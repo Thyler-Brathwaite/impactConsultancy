@@ -1,0 +1,56 @@
+.call-to-action{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:#291049;
+}
+
+.call-container{
+    align-items: center;
+    text-align: center;
+    padding:2rem;
+}
+
+.title{
+    font-size: 5rem;
+    font-weight: 700;
+    color:rgb(96, 14, 173);
+}
+
+.desc-1{
+    font-size:2rem;
+    font-weight: 600;
+}
+
+.desc-2{
+    font-size:1rem;
+    font-weight: 500;
+}
+
+.button-section{
+    margin: 2rem;
+    padding:1rem;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.button{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: blueviolet;
+    color:white;
+    border-radius: 4px;   
+    transition: background-color 0.5s;
+}
+
+.button:hover{
+    background-color: #666;
+}

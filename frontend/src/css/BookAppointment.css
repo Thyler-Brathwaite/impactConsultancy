@@ -1,0 +1,184 @@
+
+.appointment-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 1.5rem;
+    background: #f7f5fa;
+}
+
+.appointment-container {
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Header */
+
+.appointment-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.appointment-header h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    color: #3d235c;
+}
+
+.appointment-header p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+
+/* Form */
+
+.appointment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+}
+
+
+/* Contact fields */
+
+.contact-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+
+/* Inputs, Selects & Textarea */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.9rem 1rem;
+    border: 1px solid #d5d0db;
+    border-radius: 7px;
+    background: white;
+    color: #333;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Focus */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #6f3fa3;
+    box-shadow: 0 0 0 3px rgba(111, 63, 163, 0.12);
+}
+
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #999;
+}
+
+
+/* Textarea */
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+
+/* Helper text */
+
+.form-group small {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+
+/* Submit Button */
+
+.book-appointment-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #6f3fa3;
+    color: white;
+
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.book-appointment-btn:hover {
+    background: #5c3288;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(111, 63, 163, 0.25);
+}
+
+.book-appointment-btn:active {
+    transform: translateY(0);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .appointment-page {
+        padding: 2rem 1rem;
+        align-items: flex-start;
+    }
+
+    .appointment-container {
+        padding: 2rem 1.25rem;
+        border-radius: 8px;
+    }
+
+    .appointment-header {
+        margin-bottom: 2rem;
+    }
+
+    .contact-fields {
+        grid-template-columns: 1fr;
+    }
+}
+

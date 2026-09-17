@@ -1,0 +1,95 @@
+.admin-bookings-page {
+  min-height: calc(100vh - 80px);
+  padding: 4rem 1.5rem;
+  background: #f7f5fa;
+  box-sizing: border-box;
+}
+
+.admin-bookings-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+/* HEADER */
+
+.admin-bookings-header {
+  margin-bottom: 2.5rem;
+}
+
+.admin-bookings-header h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: #3d235c;
+}
+
+.admin-bookings-header p {
+  margin: 0;
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+/* APPOINTMENTS */
+
+.admin-appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+
+/* EMPTY / LOADING */
+
+.admin-bookings-message {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.admin-bookings-message h2 {
+  margin: 0 0 0.5rem;
+  color: #3d235c;
+  font-size: 1.5rem;
+}
+
+.admin-bookings-message p {
+  margin: 0;
+  color: #777;
+  line-height: 1.5;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .admin-bookings-page {
+    padding: 2rem 1rem;
+  }
+
+  .admin-bookings-header {
+    margin-bottom: 2rem;
+  }
+
+  .admin-bookings-header h1 {
+    font-size: 2rem;
+  }
+
+  .admin-bookings-header p {
+    font-size: 0.95rem;
+  }
+
+  .admin-appointments-list {
+    gap: 1rem;
+  }
+
+  .admin-bookings-message {
+    padding: 2.5rem 1.25rem;
+  }
+}

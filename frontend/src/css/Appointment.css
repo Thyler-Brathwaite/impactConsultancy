@@ -1,0 +1,102 @@
+
+
+.appointment-denial-page{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 1rem;
+    
+}
+
+.denial-title{
+    font-size: 2.5rem;
+}
+
+.denial-desc{
+ font-size: 1.5rem;
+ font-weight: 300;
+}
+
+
+.denial-btn-group{
+    display:flex;
+    gap:2rem;
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    margin:0 auto;
+    
+}
+
+.denial-element{
+    flex:1;
+    text-decoration: none;
+    cursor:pointer;
+    color: rgb(255, 243, 243);
+    transition: color 0.2s;
+    padding: 0.75rem;
+    background-color: rgb(124, 32, 209);
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.5s;
+    
+    
+}
+
+.denial-element:hover{
+    background-color: #333;
+    box-shadow: 4px 4px 100px blueviolet ;
+}
+
+.appointment-page-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 1rem;
+    min-height: 70vh;
+    
+}
+
+.appointment-group{
+    display:flex;
+    gap:2rem;
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    margin:0 auto;
+   
+}
+
+.appointment-element{
+    flex:1;
+    text-decoration: none;
+    cursor:pointer;
+    color: rgb(255, 243, 243);
+    transition: color 0.2s;
+    padding: 0.75rem;
+    background-color: rgb(124, 32, 209);
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.5s;
+}
+
+.appointment-element:hover{
+    background-color: #333;
+    box-shadow: 4px 4px 100px blueviolet ;
+}
+
+
+@media (max-width:1024px){
+    .appointment-group{
+    display:flex;
+    flex-direction: column;
+    gap:2rem;
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    margin:0 auto;
+   
+}
+}

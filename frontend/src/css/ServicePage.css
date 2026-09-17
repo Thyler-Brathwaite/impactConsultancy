@@ -1,0 +1,107 @@
+.service-page{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    
+    flex-direction: column;
+    width:100%;
+    background:url('../assets/purpleBackground.png');
+    
+    background-position: right center ;
+    background-repeat: repeat;
+    
+}
+
+
+.service-intro{
+    padding: 2rem;
+    background: linear-gradient(to right,
+            rgb(137, 43, 226) 0%,
+            rgb( 72, 15, 126)45%,
+            rgba(137, 43, 226, 0) 70%
+        ),
+        url("../assets/impactLady.png");
+    background-size: cover;
+    background-position: right center ;
+    background-repeat: no-repeat;
+    min-height: 50vh;
+    color:white;
+    border-bottom-right-radius: 150px;
+    align-content: center;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.493) ;
+}
+
+.service-title{
+    font-weight: 700;
+    font-size:4rem;
+}
+
+.service-info-grid{
+  display: flex;
+  flex-direction: column;
+}
+
+.service-info-title{
+    font-size:3rem;
+     color:rgb(82, 6, 153);
+     font-weight: 700;
+    
+}
+
+.info-card{
+    margin: 2rem;
+    display: flex;
+    background: rgb(255, 255, 255);
+    flex-direction: column;
+    padding:1rem;
+    
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.336);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.info-service{
+    color:#291049;
+    font-weight: 500;
+    font-size:1.5rem;
+}
+
+
+@media (max-width: 768px) {
+
+    .service-intro {
+        padding: 1.5rem;
+        min-height: 40vh;
+        border-bottom-right-radius: 80px;
+    }
+
+    .service-title {
+        font-size: 2.5rem;
+    }
+
+    .service-desc {
+        font-size: 1rem;
+    }
+
+    .info-card {
+        margin: 1rem;
+        padding: 1rem;
+        box-sizing: border-box;
+        width: auto;
+    }
+
+    .service-info-title {
+        font-size: 2rem;
+        overflow-wrap: break-word;
+    }
+
+    .info-service {
+        font-size: 1.1rem;
+        overflow-wrap: break-word;
+    }
+}
