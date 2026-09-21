@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: center;
     color:#291049;
+    overflow-x: hidden;
 }
 
 .call-container{
@@ -53,4 +54,18 @@
 
 .button:hover{
     background-color: #666;
+}
+
+@media (max-width: 600px){
+    .title{
+        font-size: 2.5rem;
+    }
+
+    .desc-1{
+        font-size: 1.25rem;
+    }
+
+    .call-container{
+        padding: 1.5rem;
+    }
 }

@@ -10,6 +10,7 @@
     text-align: center;
     justify-content: center;
     background-color: hsl(0, 0%, 9%);
+    overflow-x: hidden;
 }
 
 .why-choose-container{
@@ -79,33 +80,51 @@
     color: white;
 }
 
-.grid-card:hover{
-    transform: scale(1.2);
-    
+/* Scale-up hover only for devices with a real mouse — on touchscreens
+   a tap can make :hover "stick", scaling a near-full-width card past
+   the screen edge and creating swipeable whitespace. */
+@media (hover: hover) and (pointer: fine){
+    .grid-card:hover{
+        transform: scale(1.2);
+    }
 }
 
 @media (max-width: 1024px){
     .card4{
-    background: none;
-    background-color: white;
-    color:black;
+        background: none;
+        background-color: white;
+        color:black;
+    }
+
+    .card1{
+        background: none;
+        background-color: white;
+        color:black;
+    }
+
+    .card2{
+        background: none;
+        background-color: white;
+        color:black;
+    }
+
+    .card3{
+        background: none;
+        background-color: white;
+        color:black;
+    }
 }
 
-.card1{
-    background: none;
-    background-color: white;
-    color:black;
-}
+@media (max-width: 600px){
+    .why-choose-title-p{
+        font-size: 2.25rem;
+    }
 
-.card2{
-    background: none;
-    background-color: white;
-    color:black;
-}
+    .why-choose-grid{
+        gap: 2rem;
+    }
 
-.card3{
-    background: none;
-    background-color: white;
-    color:black;
-}
+    .card-title-p{
+        font-size: 1.5rem;
+    }
 }
