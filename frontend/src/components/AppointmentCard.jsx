@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 
 import "../css/AppointmentCard.css";
 
+// Must match the offset/zone used when the appointment was booked.
+const APPOINTMENT_TIMEZONE = "America/Port_of_Spain";
+
 export default function AppointmentCard({ appointment, onStatusUpdated }) {
 
   const {
@@ -27,16 +30,20 @@ export default function AppointmentCard({ appointment, onStatusUpdated }) {
 
   const date = new Date(appointmentDate);
 
+  // timeZone is pinned so every viewer sees the same business-hours time,
+  // instead of it shifting based on the viewer's own browser timezone.
   const formattedDate = date.toLocaleDateString([], {
     weekday: "long",
     year: "numeric",
     month: "long",
-    day: "numeric"
+    day: "numeric",
+    timeZone: APPOINTMENT_TIMEZONE
   });
 
   const formattedTime = date.toLocaleTimeString([], {
     hour: "numeric",
-    minute: "2-digit"
+    minute: "2-digit",
+    timeZone: APPOINTMENT_TIMEZONE
   });
 
   const handleStatusUpdate = async () => {

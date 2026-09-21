@@ -1,6 +1,9 @@
 import Appointment from "../models/Appointment.js"
 import { getAuth, clerkClient } from "@clerk/express";
 
+// Must match the offset used on the frontend (BookAppointment.jsx).
+const APPOINTMENT_UTC_OFFSET = "-04:00"; // Trinidad & Tobago (AST), no DST
+
 export async function getAppointment(req,res){
     
     try{
@@ -254,9 +257,17 @@ export async function getAvailableTimes(req, res) {
             });
         }
 
-        // Monday-Friday
-        const selectedDate = new Date(`${date}T00:00:00`);
-        const day = selectedDate.getDay();
+        // Build the instant explicitly at Trinidad midnight, so the
+        // day-of-week check below doesn't depend on the server's own
+        // local timezone setting.
+        const selectedDate = new Date(
+            `${date}T00:00:00${APPOINTMENT_UTC_OFFSET}`
+        );
+
+        // getUTCDay() is safe here because the -04:00 offset was baked
+        // in above — the instant never crosses a UTC day boundary
+        // relative to the intended Trinidad date.
+        const day = selectedDate.getUTCDay();
 
         // 0 = Sunday
         // 6 = Saturday
@@ -267,7 +278,7 @@ export async function getAvailableTimes(req, res) {
             });
         }
 
-        // Working hours: 9 AM - 4 PM
+        // Working hours: 9 AM - 4 PM (Trinidad local time)
         const slots = [];
 
         for (let hour = 9; hour < 16; hour++) {
@@ -276,9 +287,14 @@ export async function getAvailableTimes(req, res) {
             );
         }
 
-        // Find existing appointments on that day
-        const startOfDay = new Date(`${date}T00:00:00`);
-        const endOfDay = new Date(`${date}T23:59:59`);
+        // Find existing appointments on that day, using the same fixed
+        // offset so this matches how appointmentDate was stored.
+        const startOfDay = new Date(
+            `${date}T00:00:00${APPOINTMENT_UTC_OFFSET}`
+        );
+        const endOfDay = new Date(
+            `${date}T23:59:59${APPOINTMENT_UTC_OFFSET}`
+        );
 
         const appointments = await Appointment.find({
             appointmentDate: {
@@ -295,7 +311,7 @@ export async function getAvailableTimes(req, res) {
         const availableSlots = slots.filter((slot) => {
 
             const slotDate = new Date(
-                `${date}T${slot}:00`
+                `${date}T${slot}:00${APPOINTMENT_UTC_OFFSET}`
             );
 
             return !appointments.some((appointment) => {

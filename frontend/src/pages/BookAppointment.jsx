@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import "../css/BookAppointment.css";
@@ -7,6 +6,9 @@ import { useAuth } from "@clerk/react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
+
+// Trinidad & Tobago is AST (UTC-4) year-round, no DST — safe to hardcode.
+const APPOINTMENT_UTC_OFFSET = "-04:00";
 
 export default function BookAppointment() {
   const navigate = useNavigate();
@@ -27,17 +29,17 @@ export default function BookAppointment() {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [loadingTimes, setLoadingTimes] = useState(false);
 
+  // Formats an "HH:mm" slot string directly, with no Date object /
+  // timezone conversion involved — avoids any local-time drift.
   const formatTime = (time) => {
-    const [hour, minute] = time.split(":");
+    const [hourStr, minute] = time.split(":");
+    let hour = parseInt(hourStr, 10);
+    const suffix = hour >= 12 ? "PM" : "AM";
 
-    const date = new Date();
-    date.setHours(hour);
-    date.setMinutes(minute);
+    hour = hour % 12;
+    if (hour === 0) hour = 12;
 
-    return date.toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit"
-    });
+    return `${hour}:${minute} ${suffix}`;
   };
 
   const handleChange = (e) => {
@@ -88,7 +90,7 @@ export default function BookAppointment() {
   };
 
   const handleSubmit = async (e) => {
-    
+
     e.preventDefault();
 
     try {
@@ -100,7 +102,9 @@ export default function BookAppointment() {
         email: formData.email,
         phone: formData.phone,
         service: formData.service,
-        appointmentDate: `${formData.date}T${formData.time}:00`,
+        // Explicit offset so this is an unambiguous instant no matter
+        // what timezone the server (or Mongoose) happens to parse it in.
+        appointmentDate: `${formData.date}T${formData.time}:00${APPOINTMENT_UTC_OFFSET}`,
         notes: formData.notes
       };
 
@@ -318,7 +322,7 @@ export default function BookAppointment() {
             </select>
           </div>
 
-    
+
           <div className="form-group">
             <label htmlFor="notes">
               Additional Information
@@ -348,4 +352,3 @@ export default function BookAppointment() {
     </div>
   );
 }
-
