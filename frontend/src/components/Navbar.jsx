@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import impactImage from  '../assets/impactImage.png'
 import '../css/Navbar.css'
 import {Link} from 'react-router-dom'
 import { useClerk, UserButton, useUser} from '@clerk/react';
-import { useState } from 'react';
 
 
 export default function Navbar() {
@@ -13,6 +12,34 @@ export default function Navbar() {
     const navFunction = ()=>{
         setNavStatus(prev => !prev);
     }
+
+    const popupRef = useRef(null);
+    const toggleRef = useRef(null);
+
+    useEffect(() => {
+        if (!navStatus) return;
+
+        const handleOutsideClick = (event) => {
+            const clickedInsidePopup =
+                popupRef.current && popupRef.current.contains(event.target);
+            const clickedToggleButton =
+                toggleRef.current && toggleRef.current.contains(event.target);
+
+            if (!clickedInsidePopup && !clickedToggleButton) {
+                setNavStatus(false);
+            }
+        };
+
+       
+        document.addEventListener('mousedown', handleOutsideClick);
+        document.addEventListener('touchstart', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+            document.removeEventListener('touchstart', handleOutsideClick);
+        };
+    }, [navStatus]);
+
   return (
     <div className='navbar'>
         <div className='nav-container'>
@@ -52,24 +79,24 @@ export default function Navbar() {
                 <img src={impactImage} alt="company-logo" className='nav-logo-1'/>
             </div>
             
-            <div className="nav-drop-btn">
+            <div className="nav-drop-btn" ref={toggleRef}>
                 <p onClick={()=>{navFunction()}}>{!navStatus ?"☰" : "✕"}</p>
             </div>
             
         </div>
         {navStatus && 
-        <div className='nav-pop-up' >
+        <div className='nav-pop-up' ref={popupRef}>
             
-                <Link className='nav-element-1' to='/'>Home</Link>
-                <Link className='nav-element-1' to='/services'>Services</Link>
-                <Link className='nav-element-1' to='/appointment'>Appointment</Link>
-                <Link className='nav-element-1' to='/about'>About Us</Link>
-                <Link className='nav-element-1' to='/contact'>Contact</Link>
+                <Link className='nav-element-1' to='/' onClick={() => setNavStatus(false)}>Home</Link>
+                <Link className='nav-element-1' to='/services' onClick={() => setNavStatus(false)}>Services</Link>
+                <Link className='nav-element-1' to='/appointment' onClick={() => setNavStatus(false)}>Appointment</Link>
+                <Link className='nav-element-1' to='/about' onClick={() => setNavStatus(false)}>About Us</Link>
+                <Link className='nav-element-1' to='/contact' onClick={() => setNavStatus(false)}>Contact</Link>
                 {
                 !user ? 
                 <div className='auth-group'>
-                <Link className='nav-element-1'  to='/signup'>Register</Link>
-                <Link className='nav-element-1' to='/signin'>Login</Link>
+                <Link className='nav-element-1'  to='/signup' onClick={() => setNavStatus(false)}>Register</Link>
+                <Link className='nav-element-1' to='/signin' onClick={() => setNavStatus(false)}>Login</Link>
                 </div>: < UserButton className="mobile-auth-user"
                 appearance={{
                 elements: {
