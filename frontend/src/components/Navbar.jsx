@@ -97,7 +97,7 @@ export default function Navbar() {
                 
             }}
             transition={{
-                duration: 1.2,
+                duration: 0.8,
                 ease: "easeIn"
              }}
             viewport={{
