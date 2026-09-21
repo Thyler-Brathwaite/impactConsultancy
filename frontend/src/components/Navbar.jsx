@@ -85,7 +85,24 @@ export default function Navbar() {
             
         </div>
         {navStatus && 
-        <div className='nav-pop-up' ref={popupRef}>
+        <motion.div className='nav-pop-up' ref={popupRef} initial={{
+                opacity: 0,
+                 x: -40,
+                
+            }}
+            whileInView={{
+                opacity: 1,
+                x: 0,
+                
+            }}
+            transition={{
+                duration: 1.2,
+                ease: "easeIn"
+             }}
+            viewport={{
+                once: true,
+                amount: 0.5
+            }}>
             
                 <Link className='nav-element-1' to='/' onClick={() => setNavStatus(false)}>Home</Link>
                 <Link className='nav-element-1' to='/services' onClick={() => setNavStatus(false)}>Services</Link>
@@ -108,7 +125,7 @@ export default function Navbar() {
   }}/>
                 }
            
-        </div>}
+        </motion.div>}
         
         
     </div>
