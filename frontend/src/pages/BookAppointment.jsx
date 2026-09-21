@@ -9,11 +9,34 @@ import { motion } from "motion/react";
 
 // Trinidad & Tobago is AST (UTC-4) year-round, no DST — safe to hardcode.
 const APPOINTMENT_UTC_OFFSET = "-04:00";
+const BUSINESS_TIMEZONE = "America/Port_of_Spain";
+
+// Today's date (YYYY-MM-DD) as seen in the business's timezone, not the
+// visitor's device timezone — used for the date input's min value and
+// for the "is this today?" weekend/past checks below.
+function getBusinessToday() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: BUSINESS_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(new Date());
+}
+
+// True if the given YYYY-MM-DD string falls on a Saturday or Sunday,
+// evaluated at business-timezone midnight.
+function isWeekend(dateStr) {
+  const instant = new Date(`${dateStr}T00:00:00${APPOINTMENT_UTC_OFFSET}`);
+  const day = instant.getUTCDay();
+  return day === 0 || day === 6;
+}
 
 export default function BookAppointment() {
   const navigate = useNavigate();
   const { getToken } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL;
+
+  const minDate = getBusinessToday();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -61,6 +84,23 @@ export default function BookAppointment() {
     }));
 
     if (!selectedDate) {
+      setAvailableTimes([]);
+      return;
+    }
+
+    // Block picking a date before today (in business time), in case the
+    // browser's native date picker min gets bypassed somehow.
+    if (selectedDate < minDate) {
+      toast.error("You can't book a date in the past.");
+      setFormData((prev) => ({ ...prev, date: "" }));
+      setAvailableTimes([]);
+      return;
+    }
+
+    // Block weekends up front rather than silently showing "no times".
+    if (isWeekend(selectedDate)) {
+      toast.error("We're closed on weekends — please pick a weekday.");
+      setFormData((prev) => ({ ...prev, date: "" }));
       setAvailableTimes([]);
       return;
     }
@@ -285,6 +325,7 @@ export default function BookAppointment() {
               name="date"
               value={formData.date}
               onChange={handleDateChange}
+              min={minDate}
               required
             />
           </div>
@@ -307,6 +348,8 @@ export default function BookAppointment() {
               <option value="">
                 {loadingTimes
                   ? "Loading available times..."
+                  : availableTimes.length === 0 && formData.date
+                  ? "No times available"
                   : "Select a time"
                 }
               </option>
