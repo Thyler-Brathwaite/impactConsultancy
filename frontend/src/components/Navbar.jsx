@@ -3,6 +3,7 @@ import impactImage from  '../assets/impactImage.png'
 import '../css/Navbar.css'
 import {Link} from 'react-router-dom'
 import { useClerk, UserButton, useUser} from '@clerk/react';
+import { motion } from 'motion/react';
 
 
 export default function Navbar() {
