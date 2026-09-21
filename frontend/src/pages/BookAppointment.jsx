@@ -11,6 +11,7 @@ import { motion } from "motion/react";
 export default function BookAppointment() {
   const navigate = useNavigate();
   const { getToken } = useAuth();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [formData, setFormData] = useState({
     name: "",
