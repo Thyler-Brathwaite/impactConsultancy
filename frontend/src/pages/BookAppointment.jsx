@@ -88,6 +88,7 @@ export default function BookAppointment() {
   };
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
 
     try {
@@ -106,7 +107,7 @@ export default function BookAppointment() {
       console.log("Sending:", appointmentData);
 
       const response = await fetch(
-        `${API_URL}/api/appointments/availability?date=${selectedDate}`,
+        `${API_URL}/api/appointments`,
         {
           method: "POST",
           headers: {
