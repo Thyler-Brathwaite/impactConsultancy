@@ -98,14 +98,14 @@ export default function BookAppointment() {
       const token = await getToken();
 
       const appointmentData = {
-        name: formData.name,
-        company: formData.companyName,
-        email: formData.email,
-        phone: formData.phone,
-        service: formData.service,
-        appointmentDate: `${formData.date}T${formData.time}:00`,
-        notes: formData.notes
-      };
+      name: formData.name,
+      company: formData.companyName,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      appointmentDate: `${formData.date}T${formData.time}:00-04:00`,
+      notes: formData.notes
+};
 
       console.log("Sending:", appointmentData);
 
