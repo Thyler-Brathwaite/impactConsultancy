@@ -244,70 +244,82 @@ export async function deleteAppointment(req,res){
     }
     
 }
-
-const TRINIDAD_OFFSET = "-04:00"; 
-
 export async function getAvailableTimes(req, res) {
-  try {
-    const { date } = req.query;
-    if (!date) {
-      return res.status(400).json({ message: "Date is required" });
+    try {
+        const { date } = req.query;
+
+        if (!date) {
+            return res.status(400).json({
+                message: "Date is required"
+            });
+        }
+
+        // Monday-Friday
+        const selectedDate = new Date(`${date}T00:00:00`);
+        const day = selectedDate.getDay();
+
+        // 0 = Sunday
+        // 6 = Saturday
+        if (day === 0 || day === 6) {
+            return res.status(200).json({
+                date,
+                slots: []
+            });
+        }
+
+        // Working hours: 9 AM - 4 PM
+        const slots = [];
+
+        for (let hour = 9; hour < 16; hour++) {
+            slots.push(
+                `${String(hour).padStart(2, "0")}:00`
+            );
+        }
+
+        // Find existing appointments on that day
+        const startOfDay = new Date(`${date}T00:00:00`);
+        const endOfDay = new Date(`${date}T23:59:59`);
+
+        const appointments = await Appointment.find({
+            appointmentDate: {
+                $gte: startOfDay,
+                $lte: endOfDay
+            },
+
+            status: {
+                $in: ["pending", "confirmed"]
+            }
+        });
+
+        // Remove booked slots
+        const availableSlots = slots.filter((slot) => {
+
+            const slotDate = new Date(
+                `${date}T${slot}:00`
+            );
+
+            return !appointments.some((appointment) => {
+                return (
+                    new Date(
+                        appointment.appointmentDate
+                    ).getTime() === slotDate.getTime()
+                );
+            });
+        });
+
+        res.status(200).json({
+            date,
+            slots: availableSlots
+        });
+
+    } catch (error) {
+        console.error(
+            "Error getting available times:",
+            error
+        );
+
+        res.status(500).json({
+            message: "Server error"
+        });
     }
-
-    const now = new Date();
-
-    const today = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "America/Port_of_Spain",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
-    }).format(now);
-
-    if (date < today) {
-      return res.status(200).json({ date, slots: [] });
-    }
-
-    
-    const [year, month, day] = date.split("-").map(Number);
-    if (!year || !month || !day) {
-      return res.status(400).json({ message: "Invalid date" });
-    }
-    const weekday = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
-
-    if (weekday === 0 || weekday === 6) {
-      return res.status(200).json({ date, slots: [] });
-    }
-
-    const slots = [];
-    for (let hour = 9; hour < 17; hour++) {
-      slots.push(`${String(hour).padStart(2, "0")}:00`);
-    }
-
-    const startOfDay = new Date(`${date}T00:00:00${TRINIDAD_OFFSET}`);
-    const endOfDay = new Date(`${date}T23:59:59${TRINIDAD_OFFSET}`);
-
-    const appointments = await Appointment.find({
-      appointmentDate: { $gte: startOfDay, $lte: endOfDay },
-      status: { $in: ["pending", "confirmed"] }
-    });
-
-    const availableSlots = slots.filter((slot) => {
-      const slotDate = new Date(`${date}T${slot}:00${TRINIDAD_OFFSET}`);
-
-    
-      if (slotDate.getTime() <= now.getTime()) {
-        return false;
-      }
-
-      return !appointments.some(
-        (appointment) =>
-          new Date(appointment.appointmentDate).getTime() === slotDate.getTime()
-      );
-    });
-
-    res.status(200).json({ date, slots: availableSlots });
-  } catch (error) {
-    console.error("Error getting available times:", error);
-    res.status(500).json({ message: "Server error" });
-  }
 }

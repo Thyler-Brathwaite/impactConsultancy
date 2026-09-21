@@ -12,8 +12,6 @@ export default function BookAppointment() {
   const navigate = useNavigate();
   const { getToken } = useAuth();
 
-  const API_URL = import.meta.env.VITE_API_URL;
-
   const [formData, setFormData] = useState({
     name: "",
     companyName: "",
@@ -30,19 +28,16 @@ export default function BookAppointment() {
 
   const formatTime = (time) => {
     const [hour, minute] = time.split(":");
-    const hourNumber = Number(hour);
 
-    const displayHour =
-        hourNumber > 12
-            ? hourNumber - 12
-            : hourNumber === 0
-                ? 12
-                : hourNumber;
+    const date = new Date();
+    date.setHours(hour);
+    date.setMinutes(minute);
 
-    const period = hourNumber >= 12 ? "PM" : "AM";
-
-    return `${displayHour}:${minute} ${period}`;
-};
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit"
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,7 +66,7 @@ export default function BookAppointment() {
       setLoadingTimes(true);
 
       const response = await fetch(
-        `${API_URL}/api/appointments/availability?date=${selectedDate}`
+        `http://localhost:5002/api/appointments/availability?date=${selectedDate}`
       );
 
       const data = await response.json();
@@ -98,19 +93,19 @@ export default function BookAppointment() {
       const token = await getToken();
 
       const appointmentData = {
-      name: formData.name,
-      company: formData.companyName,
-      email: formData.email,
-      phone: formData.phone,
-      service: formData.service,
-      appointmentDate: `${formData.date}T${formData.time}:00-04:00`,
-      notes: formData.notes
-};
+        name: formData.name,
+        company: formData.companyName,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        appointmentDate: `${formData.date}T${formData.time}:00`,
+        notes: formData.notes
+      };
 
       console.log("Sending:", appointmentData);
 
       const response = await fetch(
-        `${API_URL}/api/appointments`,
+        "http://localhost:5002/api/appointments",
         {
           method: "POST",
           headers: {
