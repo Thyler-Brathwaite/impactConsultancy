@@ -66,7 +66,7 @@ export default function BookAppointment() {
       setLoadingTimes(true);
 
       const response = await fetch(
-        `http://localhost:5002/api/appointments/availability?date=${selectedDate}`
+        `${API_URL}/api/appointments/availability?date=${selectedDate}`
       );
 
       const data = await response.json();
@@ -105,7 +105,7 @@ export default function BookAppointment() {
       console.log("Sending:", appointmentData);
 
       const response = await fetch(
-        "http://localhost:5002/api/appointments",
+        `${API_URL}/api/appointments/availability?date=${selectedDate}`,
         {
           method: "POST",
           headers: {
